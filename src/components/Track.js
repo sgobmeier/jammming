@@ -1,23 +1,22 @@
 import React from 'react';
+import styles from './css/Track.module.css';
 
-const container = {
-    padding: "0px 40px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    columnGap: "1rem",
-    border: "red 1px solid"
+const image = {
+    margin: "0.5rem"
 }
 
 const Track = (props) => {
 
     return (
-        <div style={container}>
-            <img src={props.albumCover}/>
-            <div>
-                <h4>{props.songName}</h4>
-                <p>{props.artist} | {props.album}</p>
+        <div className={styles.container}>
+            <div style={{display: "flex", alignItems: "center"}}>
+                <img style={image} src={props.albumCover}/>
+                <div>
+                    <p className={styles.paragraph}>{props.songName}</p>
+                    <p className={styles.paragraph}>{props.artist} | {props.album}</p>
+                </div>
             </div>
+            <button className={styles.button}>+</button>
         </div>
     );
 };

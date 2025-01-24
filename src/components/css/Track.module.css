@@ -1,0 +1,27 @@
+.container  {
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: #0003 1px solid;
+}
+
+.paragraph {
+    font-size: 0.75rem;
+    margin: 0.5rem;
+    text-align: left;
+}
+
+.button {
+    all: unset;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    text-align: center;
+}
+
+.button:hover{
+    background-color: #0002;
+}
