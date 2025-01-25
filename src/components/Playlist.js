@@ -5,7 +5,7 @@ import styles from './css/Playlist.module.css'
 const Playlist = (props) => {
     const tracks = [];
     props.tracks.forEach(track => {
-        tracks.push(<Track key={track.id} songName={track.name} artist={track.artists[0].name} album={track.album.name} albumCover={track.album.images[2].url}/>)
+        tracks.push(<Track removeFromPlaylist={props.removeFromPlaylist} id={track.id} songName={track.name} artist={track.artists[0].name} album={track.album.name} albumCover={track.album.images[2].url}/>)
     });
 
     return (
