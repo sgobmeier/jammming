@@ -1,9 +1,9 @@
 .container  {
-    width: 350px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: #0003 1px solid;
+    border-bottom: #EEE3 1px solid;
 }
 
 .paragraph {
@@ -17,11 +17,26 @@
     cursor: pointer;
     width: 2rem;
     height: 2rem;
+    max-height: 2rem;
     border-radius: 1rem;
     margin: 0.5rem;
     text-align: center;
 }
 
 .button:hover{
-    background-color: #0002;
+    background-color: #EEE3;
+}
+
+.svg {
+    cursor: pointer;
+    height: 1rem;
+    width: 1rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    color: white;
+}
+
+.svg:hover{
+    background-color: #EEE3;
 }

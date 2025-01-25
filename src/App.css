@@ -1,3 +1,10 @@
 * {
-    font-family: sans-serif;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.TrackAndPlaylistContainer {
+    background-color: darkseagreen;
+    display: flex;
+    justify-content: space-between;
 }

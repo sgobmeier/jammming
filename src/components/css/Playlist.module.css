@@ -1,0 +1,35 @@
+.container {
+    width: 400px;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background-color:darkslategray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input {
+    all: unset;
+    width: 384px;
+    height: 2rem;
+    margin: 1rem 0;
+    border-bottom: solid 1px white;
+}
+
+.submit {
+    all: unset;
+    cursor: pointer;
+    width: 160px;
+    height: 3rem;
+    border-radius: 1.5rem;
+    margin: 1rem 0;
+    text-align: center;
+    background-color: darkseagreen;
+    color: darkslategray;
+}
+
+.submit:hover {
+    background-color: #EEE3;
+    color: white;
+}
