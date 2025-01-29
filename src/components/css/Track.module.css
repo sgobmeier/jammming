@@ -6,6 +6,10 @@
     border-bottom: #EEE3 1px solid;
 }
 
+.container:last-child {
+    border: none;
+}
+
 .paragraph {
     font-size: 0.75rem;
     margin: 0.5rem;

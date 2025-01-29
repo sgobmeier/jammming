@@ -3,13 +3,21 @@
     color: white;
 }
 
-.main {
+body {
     background-image: url("./components/media/background.jpg");
     background-size: cover;
     background-color: darkseagreen;
 }
 
+.main {
+    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .TrackAndPlaylistContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    width: 100%;
 }

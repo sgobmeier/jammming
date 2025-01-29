@@ -8,18 +8,18 @@ import getAccessToken from './private/getAccessToken';
 
 function App() {
 
-  const [tracklistTracks, setTracklistTracks] = useState(response.tracks.items);
+  const [tracklistTracks, setTracklistTracks] = useState([]);
   const [playlistTracks, setPlaylistTracks] = useState([]);
 
   const addToPlaylist = (uri) => {
-    const track = tracklistTracks.find((track) => track.uri === uri);
+    const track = tracklistTracks.find((track) => track.uri == uri);
     if (!playlistTracks.includes(track)) {
       setPlaylistTracks([track, ...playlistTracks]);
     }
   }
 
   const removeFromPlaylist = (uri) => {
-    const track = tracklistTracks.find((track) => track.uri === uri);
+    const track = playlistTracks.find((track) => track.uri === uri);
     setPlaylistTracks(playlistTracks.filter((track) => track.uri != uri));
   }
 
@@ -31,9 +31,41 @@ function App() {
     setPlaylistTracks([]);
   }
 
+  const searchSpotifyTrack = async (query) => {
+    const accessTokenObj = await getAccessToken();
+    const accessToken = accessTokenObj.access_token;
+    const url = new URL('https://api.spotify.com/v1/search');
+    url.search = new URLSearchParams({
+        q: query,
+        type: 'track'
+    });
+
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setTracklistTracks(data.tracks.items)
+        } else {
+          console.error('Spotify API error:', data);
+          return null;
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+        return null;
+    }
+  }
+
   return (
     <div className="main">
-      <SearchBar />
+      <SearchBar searchSpotifyTrack={searchSpotifyTrack}/>
       <div className="TrackAndPlaylistContainer">
         <Tracklist tracks={tracklistTracks} addToPlaylist={addToPlaylist}/>
         <div>
