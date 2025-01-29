@@ -3,7 +3,7 @@
     margin: 0.5rem;
     padding: 0.5rem;
     border-radius: 1rem;
-    background-color:darkslategray;
+    background-color:#2f4f4fDD;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,6 +16,10 @@
     margin: 1rem 0;
     border-bottom: solid 1px #EEE3;
 }
+
+::placeholder {
+    color: white;
+  }
 
 .submit {
     all: unset;

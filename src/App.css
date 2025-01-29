@@ -3,8 +3,13 @@
     color: white;
 }
 
-.TrackAndPlaylistContainer {
+.main {
+    background-image: url("./components/media/background.jpg");
+    background-size: cover;
     background-color: darkseagreen;
+}
+
+.TrackAndPlaylistContainer {
     display: flex;
     justify-content: space-between;
 }

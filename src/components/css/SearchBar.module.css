@@ -1,11 +1,7 @@
-.container {
+.SearchBar {
     width: 400px;
     margin: 0.5rem;
     padding: 0.5rem;
     border-radius: 1rem;
     background-color:#2f4f4fDD;
-}
-
-.h2 {
-    margin: 1rem 0.5rem;
 }
