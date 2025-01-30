@@ -3,13 +3,17 @@ import './App.css';
 import Tracklist from './components/Tracklist';
 import Playlist from './components/Playlist';
 import SearchBar from './components/SearchBar';
-import response from './components/ResponseDummy';
-import getAccessToken from './private/getAccessToken';
+import { searchSpotifyTrack, createSpotifyPlaylist } from './spotifyCalls'
 
 function App() {
 
   const [tracklistTracks, setTracklistTracks] = useState([]);
   const [playlistTracks, setPlaylistTracks] = useState([]);
+
+  const addToTracklist = async(input) => {
+    const data = await searchSpotifyTrack(input);
+    setTracklistTracks(data.tracks.items);
+  }
 
   const addToPlaylist = (uri) => {
     const track = tracklistTracks.find((track) => track.uri == uri);
@@ -23,55 +27,20 @@ function App() {
     setPlaylistTracks(playlistTracks.filter((track) => track.uri != uri));
   }
 
-  const submitPlaylist = (name) => {
-    const uris = [];
-    playlistTracks.forEach(track => {
-      uris.push(track.uri);
-    });
+  const submitPlaylist = async(name) => {
+    createSpotifyPlaylist(name, playlistTracks);
     setPlaylistTracks([]);
-  }
-
-  const searchSpotifyTrack = async (query) => {
-    const accessTokenObj = await getAccessToken();
-    const accessToken = accessTokenObj.access_token;
-    const url = new URL('https://api.spotify.com/v1/search');
-    url.search = new URLSearchParams({
-        q: query,
-        type: 'track'
-    });
-
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          setTracklistTracks(data.tracks.items)
-        } else {
-          console.error('Spotify API error:', data);
-          return null;
-        }
-    } catch (error) {
-        console.error('Fetch error:', error);
-        return null;
-    }
   }
 
   return (
     <div className="main">
-      <SearchBar searchSpotifyTrack={searchSpotifyTrack}/>
+      <SearchBar searchSpotifyTrack={addToTracklist}/>
       <div className="TrackAndPlaylistContainer">
         <Tracklist tracks={tracklistTracks} addToPlaylist={addToPlaylist}/>
         <div>
 
         </div>
-        <Playlist tracks={playlistTracks} removeFromPlaylist={removeFromPlaylist} submitPlaylist={submitPlaylist}/>
+        <Playlist tracks={playlistTracks} removeFromPlaylist={removeFromPlaylist} createSpotifyPlaylist={submitPlaylist}/>
       </div>
     </div>
   );

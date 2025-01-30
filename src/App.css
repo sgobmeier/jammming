@@ -6,6 +6,7 @@
 body {
     background-image: url("./components/media/background.jpg");
     background-size: cover;
+    background-position: center;
     background-color: darkseagreen;
 }
 

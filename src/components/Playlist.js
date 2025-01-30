@@ -16,7 +16,7 @@ const Playlist = (props) => {
     });
 
     const onClickHandler = () => {
-        props.submitPlaylist(input);
+        props.createSpotifyPlaylist(input);
         setInput("");
     }
 
