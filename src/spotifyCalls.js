@@ -1,9 +1,4 @@
-import getAccessToken from './private/getAccessToken';
-
-const searchSpotifyTrack = async (query) => {
-    const accessTokenObj = await getAccessToken();
-    const accessToken = accessTokenObj.access_token;
-
+const searchSpotifyTrack = async (query, accessToken) => {
     const url = new URL('https://api.spotify.com/v1/search');
     url.search = new URLSearchParams({
         q: query,
@@ -57,9 +52,7 @@ const getSpotifyUserProfile = async(accessToken) => {
     }
 }
 
-const createSpotifyPlaylist = async (name, playlistTracks) => {
-    const accessTokenObj = await getAccessToken();
-    const accessToken = accessTokenObj.access_token;
+const createSpotifyPlaylist = async (name, playlistTracks, accessToken) => {
     const userProfile = await getSpotifyUserProfile(accessToken);
 
     const uris = [];
@@ -68,7 +61,7 @@ const createSpotifyPlaylist = async (name, playlistTracks) => {
     });
 
     try {
-        const response = await fetch(`https://api.spotify.com/v1/users/${userProfile}/playlists`, {
+        const response = await fetch(`https://api.spotify.com/v1/users/${userProfile.id}/playlists`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,

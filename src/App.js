@@ -1,18 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Tracklist from './components/Tracklist';
 import Playlist from './components/Playlist';
 import SearchBar from './components/SearchBar';
-import { searchSpotifyTrack, createSpotifyPlaylist } from './spotifyCalls'
+import { searchSpotifyTrack, createSpotifyPlaylist } from './spotifyCalls';
+import getCodeVerifier from './private/getCodeVerifier';
+import getToken from './private/getToken';
 
 function App() {
 
   const [tracklistTracks, setTracklistTracks] = useState([]);
   const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [accessToken, setAccessToken] = useState('');
+
+  useEffect(() => {
+    if (!window.location.search.includes("code=")) {
+      getCodeVerifier();
+    } else if (window.location.search.includes("code=")) {
+      const waitForToken = async () => {
+        await getToken();
+        setAccessToken(localStorage.getItem('access_token'));
+      }
+      waitForToken();
+    }
+  }, [accessToken]);
 
   const addToTracklist = async(input) => {
-    const data = await searchSpotifyTrack(input);
-    setTracklistTracks(data.tracks.items);
+    if (input) {
+      const data = await searchSpotifyTrack(input, accessToken);
+      setTracklistTracks(data.tracks.items);
+    } else {
+      setTracklistTracks([]);
+    }
   }
 
   const addToPlaylist = (uri) => {
@@ -28,8 +47,10 @@ function App() {
   }
 
   const submitPlaylist = async(name) => {
-    createSpotifyPlaylist(name, playlistTracks);
-    setPlaylistTracks([]);
+    if (name && playlistTracks) {
+      createSpotifyPlaylist(name, playlistTracks, accessToken);
+      setPlaylistTracks([]);
+    } else {alert("name or tracks missing")}
   }
 
   return (
